@@ -33,6 +33,9 @@ kotlin {
         this.nodejs()
         binaries.executable() // not applicable to BOTH, see details below
     }
+    wasm {
+        browser()
+    }
     android {
         publishLibraryVariants("release", "debug")
     }
@@ -72,6 +75,7 @@ kotlin {
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val jsMain by getting
+        val wasmMain by getting
         val iosMain by getting {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)

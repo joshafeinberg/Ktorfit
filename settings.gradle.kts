@@ -14,6 +14,7 @@ pluginManagement {
         repositories {
             google()
             mavenCentral()
+            maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
             // your repos
         }
     }
@@ -38,3 +39,5 @@ include(":ktorfit-lib")
 include(":ktorfit-annotations")
 
 //./gradlew clean :ktorfit-annotations:publishToMavenLocal :ktorfit-ksp:publishToMavenLocal :ktorfit-lib:publishToMavenLocal :ktorfit-lib-common:publishToMavenLocal :compiler-plugin:publishToMavenLocal
+include(":sandbox2")
+include(":sandbox3")

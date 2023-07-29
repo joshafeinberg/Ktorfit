@@ -13,6 +13,7 @@ buildscript {
         maven {
             url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
         }
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
     }
     dependencies {
         classpath(libs.gradle.maven.publish.plugin)
@@ -29,7 +30,7 @@ subprojects {
         google()
         mavenLocal()
         mavenCentral()
-
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
     }
 
 }

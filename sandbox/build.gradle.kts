@@ -38,20 +38,20 @@ kotlin {
         }
         withJava()
     }
-    iosX64()
-    iosArm64()
+    /*iosX64()
+    iosArm64()*/
     js(IR) {
         this.nodejs()
         binaries.executable() // not applicable to BOTH, see details below
     }
-    linuxX64() {
+    /*linuxX64() {
         binaries {
             executable()
         }
     }
 
     macosX64("macOS")
-    mingwX64()
+    mingwX64()*/
     sourceSets {
         val commonMain by getting {
 
@@ -64,7 +64,7 @@ kotlin {
 
             }
         }
-        val linuxX64Main by getting {
+        /*val linuxX64Main by getting {
             dependencies {
 
                 implementation(libs.ktor.client.core.native)
@@ -74,7 +74,7 @@ kotlin {
                 implementation(libs.ktor.client.cio.linux)
 
             }
-        }
+        }*/
 
 
         val jvmMain by getting {
@@ -114,13 +114,13 @@ kotlin {
 
             }
         }
-        val iosX64Main by getting
+        /*val iosX64Main by getting
         val iosArm64Main by getting
         val iosMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
-        }
+        }*/
 
     }
 }
@@ -132,11 +132,11 @@ dependencies {
         "kspCommonMainMetadata", projects.ktorfitKsp
     )
     add("kspJvm", projects.ktorfitKsp)
-    add("kspIosX64", projects.ktorfitKsp)
+    //add("kspIosX64", projects.ktorfitKsp)
 
     // add("kspJvmTest", projects.ktorfitKsp)
     add("kspJs", projects.ktorfitKsp)
-    add("kspLinuxX64", projects.ktorfitKsp)
-    add("kspMingwX64", projects.ktorfitKsp)
+    /*add("kspLinuxX64", projects.ktorfitKsp)
+    add("kspMingwX64", projects.ktorfitKsp)*/
 
 }

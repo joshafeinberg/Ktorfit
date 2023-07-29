@@ -67,9 +67,13 @@ kotlin {
         this.nodejs()
         binaries.executable() // not applicable to BOTH, see details below
     }
+    wasm {
+        browser()
+    }
     android {
         publishLibraryVariants("release", "debug")
     }
+/*
     iosArm64()
     iosX64()
     iosSimulatorArm64()
@@ -97,6 +101,7 @@ kotlin {
         }
     }
     mingwX64()
+*/
 
     sourceSets {
         val commonMain by getting {
@@ -110,7 +115,7 @@ kotlin {
                 implementation(libs.kotlin.test)
             }
         }
-        val linuxX64Main by getting {
+        /*val linuxX64Main by getting {
             dependencies {
             }
         }
@@ -118,7 +123,7 @@ kotlin {
             dependencies {
 
             }
-        }
+        }*/
         val androidMain by getting {
             dependencies {
 
@@ -141,16 +146,16 @@ kotlin {
                 implementation(libs.ktor.client.cio.jvm)
             }
         }
-        val iosX64Main by getting
+        /*val iosX64Main by getting
         val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
+        val iosSimulatorArm64Main by getting*/
         val jsMain by getting {
             dependencies {
 
             }
         }
 
-        val iosMain by getting {
+        /*val iosMain by getting {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -158,7 +163,7 @@ kotlin {
             dependencies {
 
             }
-        }
+        }*/
     }
 }
 val javadocJar by tasks.registering(Jar::class) {
