@@ -2,7 +2,7 @@
 autoService = "1.1.1"
 coroutines = "1.6.4"
 detekt = "1.23.0"
-kctfork = "0.2.1"
+kctfork = "0.3.1"
 kotlin = "1.9.0"
 kotlinPoet = "1.14.2"
 kspVersion = "1.9.0-1.0.12"
@@ -11,7 +11,7 @@ ktorfit-lib = "1.4.4-SNAPSHOT"
 ktorVersion = "2.3.3-wasm0"
 ktorWasmVersion = "2.3.3-wasm0"
 dokkaVersion = "1.8.20"
-gradleMavenPublishPlugin = "0.24.0"
+gradleMavenPublishPlugin = "0.25.3"
 
 [libraries]
 android-build-gradle = "com.android.tools.build:gradle:7.4.0"
