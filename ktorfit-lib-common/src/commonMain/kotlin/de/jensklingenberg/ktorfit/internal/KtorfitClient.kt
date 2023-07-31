@@ -3,8 +3,11 @@ package de.jensklingenberg.ktorfit.internal
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.converter.builtin.DefaultSuspendResponseConverterFactory
 import io.ktor.client.*
+import io.ktor.client.plugins.DataConversion
+import io.ktor.client.plugins.pluginOrNull
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import io.ktor.util.converters.DefaultConversionService
 import io.ktor.util.reflect.*
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
@@ -176,6 +179,12 @@ internal class KtorfitClient(private val ktorfit: Ktorfit) : Client {
         }
             ?: throw IllegalArgumentException("No RequestConverter found to convert ${parameterType.simpleName} to ${requestType.simpleName}")
         return requestType.cast(requestConverter.convert(data))
+    }
+
+    override fun convertParameterType(value: Any?): String {
+        val conversionService = httpClient.pluginOrNull(DataConversion) ?: DefaultConversionService
+        // todo - update this to support lists
+        return conversionService.toValues(value).first()
     }
 
     private fun HttpRequestBuilder.requestBuilder(

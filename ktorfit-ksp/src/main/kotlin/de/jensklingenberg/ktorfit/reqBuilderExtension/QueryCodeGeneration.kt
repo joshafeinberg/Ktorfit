@@ -93,7 +93,7 @@ private fun getQueryText(
         if (encoded) {
             "%s?.let{ encodedParameters.append(\"%s\", \"\$it\") }\n".format(parameterData.name, query.value)
         } else {
-            "%s?.let{ parameter(\"%s\", \"\$it\") }\n".format(parameterData.name, query.value)
+            "%s?.let{ parameter(\"%s\", ktorfitClient.convertParameterType(it)) }\n".format(parameterData.name, query.value)
         }
     }
 

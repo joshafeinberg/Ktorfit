@@ -22,6 +22,8 @@ public interface Client {
      */
     public fun <T : Any> convertParameterType(data: Any, parameterType: KClass<*>, requestType: KClass<T>): T
 
+    public fun convertParameterType(value: Any?): String
+
     /**
      * Set baseUrl of the client
      */
