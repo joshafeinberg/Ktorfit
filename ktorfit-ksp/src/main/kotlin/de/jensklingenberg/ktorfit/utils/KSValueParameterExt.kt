@@ -78,6 +78,13 @@ fun KSValueParameter.getPartMapAnnotation(): PartMap? {
 }
 
 @OptIn(KspExperimental::class)
+fun KSValueParameter.getFilePartAnnotation(): FilePart? {
+    return this.getAnnotationsByType(de.jensklingenberg.ktorfit.http.FilePart::class).firstOrNull()?.let {
+        return FilePart(it.name, it.contentType, it.contentDisposition)
+    }
+}
+
+@OptIn(KspExperimental::class)
 fun KSValueParameter.getRequestBuilderAnnotation(): RequestBuilder? {
     return this.getAnnotationsByType(de.jensklingenberg.ktorfit.http.ReqBuilder::class).firstOrNull()?.let {
         return RequestBuilder

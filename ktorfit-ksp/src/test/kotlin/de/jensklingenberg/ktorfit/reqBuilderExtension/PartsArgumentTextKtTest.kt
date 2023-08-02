@@ -3,6 +3,7 @@ package de.jensklingenberg.ktorfit.reqBuilderExtension
 import com.google.devtools.ksp.symbol.KSType
 import de.jensklingenberg.ktorfit.model.ParameterData
 import de.jensklingenberg.ktorfit.model.ReturnTypeData
+import de.jensklingenberg.ktorfit.model.annotations.FilePart
 import de.jensklingenberg.ktorfit.model.annotations.Part
 import de.jensklingenberg.ktorfit.model.annotations.PartMap
 import org.junit.Assert
@@ -34,6 +35,32 @@ class PartsArgumentTextKtTest {
         val text = getPartsCode(params, listType, arrayType)
         val expected = """|val _formData = formData {
                             |test1?.let{ append("world", "ä{it}") }
+                            |}
+                            |setBody(MultiPartFormDataContent(_formData))
+                            |
+                            """.trimMargin().replace("ä", "$")
+        Assert.assertEquals(expected, text)
+    }
+
+    @Test
+    fun returnPartsWithFilePartAnnotation() {
+        val filePartAnnotation = FilePart("file", "text/csv", "filename=temp.csv")
+        val parameterData = ParameterData(
+            "test1",
+            ReturnTypeData("ByteArray", "kotlin.ByteArray", null),
+            annotations = listOf(filePartAnnotation)
+        )
+        val params = listOf(parameterData)
+        val text = getPartsCode(params, listType, arrayType)
+        val expected = """|val _formData = formData {
+                            |append(
+                            |    key = "file",
+                            |    value = test1,
+                            |    headers = Headers.build {
+                            |        append(HttpHeaders.ContentType, "text/csv")
+                            |        append(HttpHeaders.ContentDisposition, "filename=temp.csv")
+                            |    },
+                            |)
                             |}
                             |setBody(MultiPartFormDataContent(_formData))
                             |

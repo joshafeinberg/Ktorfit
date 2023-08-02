@@ -2,6 +2,7 @@ package de.jensklingenberg.ktorfit.reqBuilderExtension
 
 import com.google.devtools.ksp.symbol.KSType
 import de.jensklingenberg.ktorfit.model.ParameterData
+import de.jensklingenberg.ktorfit.model.annotations.FilePart
 import de.jensklingenberg.ktorfit.model.annotations.Part
 import de.jensklingenberg.ktorfit.model.annotations.PartMap
 import de.jensklingenberg.ktorfit.utils.surroundIfNotEmpty
@@ -33,7 +34,23 @@ fun getPartsCode(params: List<ParameterData>, listType: KSType, arrayType: KSTyp
         "${parameterData.name}?.forEach { entry -> entry.value?.let{ append(entry.key, \"\${entry.value}\") } }\n"
     }
 
-    return (partText + partMapStrings).surroundIfNotEmpty(
+    val filePartText = params.filter { it.hasAnnotation<FilePart>() }.joinToString("") { parameterData ->
+        val filePart = parameterData.annotations.filterIsInstance<FilePart>().first()
+
+        """
+            append(
+                key = "${filePart.name}",
+                value = ${parameterData.name},
+                headers = Headers.build {
+                    append(HttpHeaders.ContentType, "${filePart.contentType}")
+                    append(HttpHeaders.ContentDisposition, "${filePart.contentDisposition}")
+                },
+            )
+            
+        """.trimIndent()
+    }
+
+    return (partText + partMapStrings + filePartText).surroundIfNotEmpty(
         "val _formData = formData {\n", "}\nsetBody(MultiPartFormDataContent(_formData))\n"
     )
 }

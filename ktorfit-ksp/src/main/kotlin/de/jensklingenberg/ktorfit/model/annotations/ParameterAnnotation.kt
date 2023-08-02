@@ -24,6 +24,7 @@ data class Field(val value: String, val encoded: Boolean = false) : ParameterAnn
 data class FieldMap(val encoded: Boolean) : ParameterAnnotation()
 data class Part(val value: String = "", val encoding: String = "binary") : ParameterAnnotation()
 data class PartMap(val encoding: String = "binary") : ParameterAnnotation()
+data class FilePart(val name: String = "", val contentType: String = "", val contentDisposition: String = "") : ParameterAnnotation()
 
 
 /**
@@ -118,6 +119,13 @@ fun KSValueParameter.getParamAnnotationList(logger: KSPLogger): List<ParameterAn
     ksValueParameter.getPartMapAnnotation()?.let {
         if (!ksValueParameter.type.toString().endsWith(KEY_MAP)) {
             logger.error(KtorfitError.PART_MAP_PARAMETER_TYPE_MUST_BE_MAP, ksValueParameter)
+        }
+        paramAnnos.add(it)
+    }
+
+    ksValueParameter.getFilePartAnnotation()?.let {
+        if (ksValueParameter.type.resolve().isMarkedNullable) {
+            logger.error(KtorfitError.PART_PARAMETER_TYPE_MAY_NOT_BE_NULLABLE, ksValueParameter.type)
         }
         paramAnnos.add(it)
     }
