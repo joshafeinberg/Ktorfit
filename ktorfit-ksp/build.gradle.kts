@@ -114,6 +114,7 @@ publishing {
             hasProperty("sonatypeReleaseUrl")
         ) {
             maven {
+                name = "githubPackages"
                 val url = when {
                     "SNAPSHOT" in version.toString() -> property("sonatypeSnapshotUrl")
                     else -> property("sonatypeReleaseUrl")
