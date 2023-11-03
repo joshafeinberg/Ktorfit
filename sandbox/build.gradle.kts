@@ -38,20 +38,20 @@ kotlin {
         }
         withJava()
     }
-    iosX64()
-    iosArm64()
+    /*iosX64()
+    iosArm64()*/
     js(IR) {
         this.nodejs()
         binaries.executable() // not applicable to BOTH, see details below
     }
-    linuxX64() {
+    /*linuxX64() {
         binaries {
             executable()
         }
-    }
+    }*/
 
-    macosX64("macOS")
-    mingwX64()
+    /*macosX64("macOS")
+    mingwX64()*/
     sourceSets {
         val commonMain by getting {
 
@@ -66,7 +66,7 @@ kotlin {
 
             }
         }
-        val linuxX64Main by getting {
+        /*val linuxX64Main by getting {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.ktor.client.curl)
@@ -74,7 +74,7 @@ kotlin {
                 implementation(libs.ktor.client.cio.linux)
 
             }
-        }
+        }*/
 
 
         val jvmMain by getting {
@@ -114,13 +114,13 @@ kotlin {
 
             }
         }
-        val iosX64Main by getting
+        /*val iosX64Main by getting
         val iosArm64Main by getting
         val iosMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
-        }
+        }*/
 
     }
 }
@@ -132,12 +132,12 @@ dependencies {
             "kspCommonMainMetadata", this
         )
         add("kspJvm", this)
-        add("kspIosX64", this)
+        // add("kspIosX64", this)
 
         // add("kspJvmTest", this)
         add("kspJs", this)
-        add("kspLinuxX64", this)
-        add("kspMingwX64", this)
+        // add("kspLinuxX64", this)
+        // add("kspMingwX64", this)
     }
 
 

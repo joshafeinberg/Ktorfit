@@ -47,11 +47,11 @@ kotlin {
     androidTarget {
         publishLibraryVariants("release", "debug")
     }
-    iosArm64()
+    /*iosArm64()
     iosX64()
-    iosSimulatorArm64()
+    iosSimulatorArm64()*/
 
-    watchosArm32()
+    /*watchosArm32()
     watchosArm64()
     watchosX64()
     watchosSimulatorArm64()
@@ -64,23 +64,23 @@ kotlin {
         binaries {
             executable()
         }
-    }
+    }*/
 
-    ios("ios") {
+    /*ios("ios") {
         binaries {
             framework {
                 baseName = "library"
             }
         }
     }
-    mingwX64()
+    mingwX64()*/
     sourceSets {
         val commonMain by getting {
             dependencies {
                 api(projects.ktorfitLibCore)
             }
         }
-        val linuxX64Main by getting {
+        /*val linuxX64Main by getting {
             dependencies {
                 implementation(libs.ktor.client.core.linux)
                 implementation(libs.ktor.client.cio.linux)
@@ -90,7 +90,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.core.mingwx64)
             }
-        }
+        }*/
         val androidMain by getting {
             dependencies {
                 implementation(libs.ktor.client.cio.jvm)
@@ -102,16 +102,16 @@ kotlin {
             }
         }
 
-        val iosX64Main by getting
+        /*val iosX64Main by getting
         val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
+        val iosSimulatorArm64Main by getting*/
         val jsMain by getting {
             dependencies {
                 implementation(libs.ktor.client.js)
             }
         }
 
-        val iosMain by getting {
+        /*val iosMain by getting {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
@@ -119,7 +119,7 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.ios)
             }
-        }
+        }*/
     }
 }
 val javadocJar by tasks.registering(Jar::class) {
