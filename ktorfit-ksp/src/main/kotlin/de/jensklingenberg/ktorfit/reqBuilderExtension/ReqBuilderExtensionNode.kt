@@ -40,6 +40,7 @@ fun getReqBuilderExtensionText(functionData: FunctionData, resolver: Resolver): 
         functionData.parameterDataList, listType,
         arrayType
     )
+    val filePart = getFilePartCode(functionData.parameterDataList)
     val url =
         getUrlCode(functionData.parameterDataList, functionData.httpMethodAnnotation, queryCode)
     val customReqBuilder = getCustomRequestBuilderText(functionData.parameterDataList)
@@ -52,6 +53,7 @@ fun getReqBuilderExtensionText(functionData: FunctionData, resolver: Resolver): 
         attributeKeys,
         fields,
         parts,
+        filePart,
         customReqBuilder
     ).filter { it.isNotEmpty() }
         .joinToString("\n") { it }

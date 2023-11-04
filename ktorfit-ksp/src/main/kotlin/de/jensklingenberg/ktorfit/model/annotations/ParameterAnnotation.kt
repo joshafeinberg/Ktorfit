@@ -25,6 +25,7 @@ sealed class ParameterAnnotation{
     data class Part(val value: String = "", val encoding: String = "binary") : ParameterAnnotation()
     data class PartMap(val encoding: String = "binary") : ParameterAnnotation()
     data class Tag(val value: String) : ParameterAnnotation()
+    data class FilePart(val name: String = "", val contentType: String = "", val contentDisposition: String = "") : ParameterAnnotation()
 }
 
 
@@ -127,6 +128,13 @@ fun KSValueParameter.getParamAnnotationList(logger: KSPLogger): List<ParameterAn
     ksValueParameter.getUrlAnnotation()?.let {
         if (ksValueParameter.type.resolve().isMarkedNullable) {
             logger.error(KtorfitError.URL_PARAMETER_TYPE_MAY_NOT_BE_NULLABLE, ksValueParameter)
+        }
+        paramAnnos.add(it)
+    }
+
+    ksValueParameter.getFilePartAnnotation()?.let {
+        if (!ksValueParameter.type.toString().endsWith("ByteArray")) {
+            logger.error("FilePart parameter must be a ByteArray")
         }
         paramAnnos.add(it)
     }

@@ -110,6 +110,13 @@ fun KSValueParameter.getTagAnnotation(): Tag? {
     }
 }
 
+@OptIn(KspExperimental::class)
+fun KSValueParameter.getFilePartAnnotation(): FilePart? {
+    return this.getAnnotationsByType(de.jensklingenberg.ktorfit.http.FilePart::class).firstOrNull()?.let {
+        return FilePart(it.name, it.contentType, it.contentDisposition)
+    }
+}
+
 fun KSValueParameter.getRequestTypeAnnotation(): RequestType? {
     val requestTypeClazz = de.jensklingenberg.ktorfit.http.RequestType::class
     val filteredAnnotations = this.annotations.filter {
